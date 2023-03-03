@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Speech to text</title>
+    <link rel="stylesheet" type="text/css" href="note_styles.css" />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div>
+          <button id="start" class="button">Start writing</button>
+          <button id="stop" class="button">Stop writing</button>
+        </div>
+
+        <div class="output_box">
+          <label class="output_heading" for="textarea"
+            >Text output for you to copy.</label
+          >
+          <textarea id="textarea" class="textarea"> </textarea>
+        </div>
+        <div class="texts"></div>
+      </div>
+    </section>
+    <script type="module" src="speech.js"></script>
+  </body>
+</html>
