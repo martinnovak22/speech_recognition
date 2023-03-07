@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Marhey&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-family: "Marhey";
+  font-size: 20px;
+}
+
+.app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #6b9080;
+  flex-direction: column;
+  padding: 50px 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  background-color: #a4c3b2;
+  border: 2px solid #333333;
+  border-radius: 5px;
+}
+
+.link {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.button {
+  width: 150px;
+  height: 40px;
+  margin-bottom: 20px;
+  border: 2px solid #333333;
+  border-radius: 5px;
+  background-color: #cce3de;
+  cursor: pointer;
+}

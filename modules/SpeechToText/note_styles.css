@@ -1,24 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Marhey&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-html {
-  font-family: "Marhey";
-  font-size: 20px;
-}
-section {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  background-color: #6b9080;
-  flex-direction: column;
-  padding: 50px 0;
-}
-
 textarea {
   width: 350px;
   height: 250px;
@@ -29,20 +8,9 @@ textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90%;
   max-width: 500px;
   margin: 0 auto;
   justify-content: center;
-}
-
-.button {
-  width: 150px;
-  height: 40px;
-  margin-bottom: 20px;
-  border: 2px solid #333333;
-  border-radius: 5px;
-  background-color: #cce3de;
-  cursor: pointer;
 }
 
 .output_box {
