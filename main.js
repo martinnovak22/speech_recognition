@@ -11,22 +11,32 @@ recognition.interimResults = true;
 
 startButton.addEventListener("click", () => {
   recognition.start();
-  console.log("start");
+  startButton.classList.add(
+    "animate__animated",
+    "animate__pulse",
+    "animate__infinite",
+    "infinite"
+  );
 });
 
 recognition.addEventListener("result", (e) => {
   texts.appendChild(p);
-  const text = Array.from(e.results)
+  const result = Array.from(e.results)
     .map((result) => result[0])
     .map((result) => result.transcript)
     .join("");
 
-  p.innerText = text;
-
+  p.innerText = result;
+  const text = result.toLowerCase();
+  console.log(text);
+  startButton.classList.remove(
+    "animate__animated",
+    "animate__pulse",
+    "animate__infinite",
+    "infinite"
+  );
   if (e.results[0].isFinal) {
     if (text.includes("how are you")) {
-      p = document.createElement("p");
-      p.classList.add("replay");
       p.innerText = "I am fine";
       texts.appendChild(p);
     }
@@ -34,15 +44,22 @@ recognition.addEventListener("result", (e) => {
       text.includes("What's your name") ||
       text.includes("what is your name")
     ) {
-      p = document.createElement("p");
-      p.innerText = "My Name is Martin";
       texts.appendChild(p);
     }
-    if (text.includes("Open YouTube")) {
-      p = document.createElement("p");
-      texts.appendChild(p);
+    if (text.includes("open youtube")) {
       window.open("https://www.youtube.com/");
     }
-    p = document.createElement("p");
+    if (text.includes("open facebook")) {
+      window.open("https://www.facebook.com/");
+    }
+    if (text.includes("open google")) {
+      window.open("https://www.google.com/");
+    }
+    if (text.includes("open seznam")) {
+      window.open("https://www.seznam.cz/");
+    }
+    setTimeout(() => {
+      texts.removeChild(p);
+    }, 2500);
   }
 });

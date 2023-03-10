@@ -21,15 +21,22 @@ html {
 }
 
 .nav {
+  width: 400px;
+  height: 400px;
+}
+
+.box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 400px;
   background-color: #a4c3b2;
   border: 2px solid #333333;
   border-radius: 5px;
+  margin-bottom: 25px;
+  -webkit-box-shadow: 15px 15px 5px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 15px 15px 5px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 15px 15px 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .link {
@@ -37,6 +44,7 @@ html {
   text-decoration: none;
   color: black;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .button {
@@ -47,4 +55,9 @@ html {
   border-radius: 5px;
   background-color: #cce3de;
   cursor: pointer;
+}
+
+.texts {
+  width: 400px;
+  height: 200px;
 }
