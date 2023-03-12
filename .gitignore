@@ -3,3 +3,4 @@
 .run
 cgi-bin/
 node_modules/
+.env
