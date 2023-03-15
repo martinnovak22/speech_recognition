@@ -14,7 +14,6 @@ const help_box = document.querySelector(".help_box");
 const result_span = document.createElement("span");
 
 const APIKEY = process.env.WEATHER_API_KEY;
-console.log(APIKEY);
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
