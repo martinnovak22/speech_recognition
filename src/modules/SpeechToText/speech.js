@@ -1,3 +1,7 @@
+import "./note_styles.css";
+import "../../styles.css";
+import { firstLetterUpper } from "../../utils";
+
 const texts = document.querySelector(".texts");
 const startButton = document.querySelector("#start");
 const stopButton = document.querySelector("#stop");
@@ -30,14 +34,14 @@ recognition.addEventListener("result", (e) => {
     .map((result) => result.transcript)
     .join("");
 
-  const speechText = document.createTextNode(
-    text.charAt(0).toUpperCase() + text.slice(1) + ". "
-  );
+  // const speechText = document.createTextNode(
+  //   text.charAt(0).toUpperCase() + text.slice(1) + ". "
+  // );
 
-  p.innerText = speechText.wholeText;
+  p.innerText = firstLetterUpper(text);
 
   if (e.results[0].isFinal) {
-    textArea.appendChild(speechText);
+    textArea.appendChild(firstLetterUpper(text).createTextNode());
   }
 });
 // --------

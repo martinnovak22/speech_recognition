@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>Speech to text</title>
-    <link rel="stylesheet" type="text/css" href="note_styles.css" />
-    <link rel="stylesheet" type="text/css" href="/styles_main.css" />
   </head>
   <body>
     <div class="app">
@@ -14,15 +12,19 @@
           <button id="stop" class="button">Stop writing</button>
         </div>
 
-        <div class="output_box">
+        <div class="textarea_container box">
           <label class="output_heading" for="textarea"
             >Text output for you to copy.</label
           >
-          <textarea id="textarea" class="textarea"> </textarea>
+          <textarea id="textarea" class="box textarea"> </textarea>
         </div>
-        <div class="texts"></div>
+        <div class="box texts_container">
+          <h6 class="box_title">Speech recognition</h6>
+          <div class="texts box"></div>
+        </div>
+        <a class="link" href="index.html">Back to voice commands</a>
       </div>
     </div>
-    <script type="module" src="speech.js"></script>
+    <script type="text/javascript" src="speech.js"></script>
   </body>
 </html>

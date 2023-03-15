@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Speech recognition</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <div class="main box">
+        <h1 class="main_title">Speech recognition API</h1>
+        <button id="start" class="button">Voice command</button>
+        <div class="texts box"></div>
+      </div>
+      <div>
+        <div class="overlay">
+          <div class="overlay_container">
+            <button id="close" class="button close">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="0"
+                  y1="100"
+                  x2="100"
+                  y2="0"
+                  stroke-width="10"
+                  stroke="black"
+                />
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="100"
+                  y2="100"
+                  stroke-width="10"
+                  stroke="black"
+                />
+              </svg>
+            </button>
+            <div class="map_holder"></div>
+            <div class="help_box box">
+              <h2>Commands</h2>
+              <ul>
+                <li>open youtube/facebook/gooogle/seznam</li>
+                <li>open speech to text</li>
+                <li>show me my location</li>
+                <li>what's the weather</li>
+                <li>bitcoin price now</li>
+                <li>what's the date today</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info box">
+        <h6 class="box_title">Output info</h6>
+        <div class="output"></div>
+      </div>
+      <button id="help" class="button">Help</button>
+    </div>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

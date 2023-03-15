@@ -2,3 +2,7 @@
 .idea
 .run
 cgi-bin/
+node_modules/
+.env
+dist/
+.babelrc
