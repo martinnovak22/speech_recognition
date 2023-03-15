@@ -45,6 +45,8 @@ module.exports = {
       inject: true,
       chunks: ["speech.js"],
     }),
-    new Dotenv(),
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
 };
