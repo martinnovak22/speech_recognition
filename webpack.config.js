@@ -6,7 +6,7 @@ const path = require("path");
 module.exports = {
   mode: "development",
   entry: {
-    main: "./src/main.js",
+    app: "./src/app.js",
     speech: "./src/modules/SpeechToText/speech.js",
   },
   output: {
@@ -37,7 +37,7 @@ module.exports = {
       template: "src/index.html",
       filename: "index.html",
       inject: true,
-      chunks: ["main"],
+      chunks: ["app.js"],
     }),
     new HtmlWebpackPlugin({
       template: "src/modules/SpeechToText/speech_to_text.html",

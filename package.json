@@ -2,7 +2,7 @@
   "name": "speech_to_text",
   "description": "Bachelor thesis - JCU - Speech recognition - Novák Martin",
   "version": "1.0.0",
-  "main": "src/main.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
