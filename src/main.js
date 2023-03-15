@@ -1,16 +1,19 @@
-import { firstLetterUpper, getLocation } from "./utils";
+import "./styles.css";
+
+import { firstLetterUpper, getLocation } from "./utils.js";
 
 const texts = document.querySelector(".texts");
 const start_button = document.querySelector("#start");
-const output_box = document.querySelector(".output_box");
-
+const output = document.querySelector(".output");
 const close_button = document.querySelector("#close");
-const forecast_overlay = document.querySelector(".forecast_overlay");
-const forecast_diagram_holder = document.querySelector(".img_holder");
+const map_overlay = document.querySelector(".map_overlay");
+const map_holder = document.querySelector(".map_holder");
+const help_button = document.querySelector("#help");
 
-const APIKEY = "bba7d543d0f17add68199f64c36d222c";
+const result_span = document.createElement("span");
 
-const testButton = document.querySelector(".testButton");
+const APIKEY = process.env.WEATHER_API_KEY;
+console.log(APIKEY);
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -29,14 +32,14 @@ start_button.addEventListener("click", () => {
 });
 
 recognition.addEventListener("result", (e) => {
-  const resultSpan = document.createElement("span");
-  texts.appendChild(resultSpan);
+  texts.appendChild(result_span);
+  output.innerHTML = "";
   const result = Array.from(e.results)
     .map((result) => result[0])
     .map((result) => result.transcript)
     .join("");
 
-  resultSpan.innerText = result;
+  result_span.innerText = result;
   const text = result.toLowerCase();
   console.log(text);
   start_button.classList.remove(
@@ -46,15 +49,12 @@ recognition.addEventListener("result", (e) => {
     "infinite"
   );
   if (e.results[0].isFinal) {
-    if (text.includes("how are you")) {
-      p.innerText = "I am fine";
-      texts.appendChild(p);
-    }
     if (
       text.includes("What's your name") ||
       text.includes("what is your name")
     ) {
-      texts.appendChild(p);
+      result_span.innerText = "My name is Martin";
+      texts.appendChild(result_span);
     }
     if (text.includes("open youtube")) {
       window.open("https://www.youtube.com/");
@@ -69,33 +69,27 @@ recognition.addEventListener("result", (e) => {
       window.open("https://www.seznam.cz/");
     }
     if (text.includes("open speech to text")) {
-      window.location.href = "/modules/SpeechToText/speech_to_text.html";
+      window.location.href = "speech_to_text.html";
     }
-    // if (text.includes("show me weather forecast")) {
-    //   getLocation().then((location) =>
-    //     fetch(
-    //       `http://www.7timer.info/bin/civil.php?lon=${location.longitude}&lat=${location.latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0`
-    //     )
-    //       .then((response) => {
-    //         return response;
-    //       })
-    //       .then((data) => {
-    //         console.log(data);
-    //
-    //         const img = document.createElement("img");
-    //         img.setAttribute("alt", "forecast diagram");
-    //         img.setAttribute("src", `${data.url}`);
-    //         img.classList.add("forecast_diagram");
-    //         forecast_diagram_holder.appendChild(img);
-    //         forecast_overlay.classList.add("overlay_on");
-    //
-    //         close_button.addEventListener("click", () => {
-    //           forecast_overlay.classList.remove("overlay_on");
-    //           forecast_diagram_holder.removeChild(img);
-    //         });
-    //       })
-    //   );
-    // }
+    if (text.includes("show me my location")) {
+      getLocation().then((location) => {
+        const mapFrame = document.createElement("iframe");
+        mapFrame.setAttribute(
+          "src",
+          `https://maps.google.com/maps?q=${location.latitude},${location.longitude}&hl=es;z=14&amp;&output=embed`
+        );
+        mapFrame.classList.add("map_frame");
+        mapFrame.setAttribute("loading", "lazy");
+
+        map_holder.appendChild(mapFrame);
+        map_overlay.classList.add("overlay_on");
+
+        close_button.addEventListener("click", () => {
+          map_overlay.classList.remove("overlay_on");
+          map_holder.removeChild(mapFrame);
+        });
+      });
+    }
     if (text.includes("what's the weather")) {
       getLocation().then((location) =>
         fetch(
@@ -116,14 +110,12 @@ recognition.addEventListener("result", (e) => {
             weatherSpan.innerText =
               `Temperature: ${currentWeather.main.temp.toFixed(1)}\n` +
               `${firstLetterUpper(currentWeather.weather[0].description)}`;
-            //TODO jiné místo pro load příkazů a výsledků?
-            output_box.appendChild(weatherSpan);
-            output_box.appendChild(icon);
+            output.appendChild(weatherSpan);
+            output.appendChild(icon);
           })
       );
     }
-
-    if (text.includes("current bitcoin price")) {
+    if (text.includes("bitcoin price now")) {
       fetch("https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT")
         .then((response) => {
           return response.json();
@@ -133,24 +125,22 @@ recognition.addEventListener("result", (e) => {
           const btcPriceSpan = document.createElement("span");
           btcPriceSpan.innerText =
             "BTC: " + Number(data.price).toFixed(2) + " $";
-          output_box.appendChild(btcPrice);
+          output.appendChild(btcPriceSpan);
         });
     }
-
     if (text.includes("what's the date today")) {
       const date = new Date();
       const time = document.createElement("span");
       time.innerText = date.toLocaleString();
-      output_box.appendChild(time);
+      output.appendChild(time);
     }
 
-    //TODO případně o lokaci, google map?
     setTimeout(() => {
-      texts.removeChild(p);
+      texts.removeChild(result_span);
     }, 1000);
   }
 });
 
-testButton.addEventListener("click", () => {
+help_button.addEventListener("click", () => {
   console.log("click");
 });
