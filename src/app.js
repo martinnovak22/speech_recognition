@@ -6,9 +6,10 @@ const texts = document.querySelector(".texts");
 const start_button = document.querySelector("#start");
 const output = document.querySelector(".output");
 const close_button = document.querySelector("#close");
-const map_overlay = document.querySelector(".map_overlay");
+const overlay = document.querySelector(".overlay");
 const map_holder = document.querySelector(".map_holder");
 const help_button = document.querySelector("#help");
+const help_box = document.querySelector(".help_box");
 
 const result_span = document.createElement("span");
 
@@ -82,11 +83,13 @@ recognition.addEventListener("result", (e) => {
         mapFrame.setAttribute("loading", "lazy");
 
         map_holder.appendChild(mapFrame);
-        map_overlay.classList.add("overlay_on");
+        map_holder.style.display = "flex";
+        overlay.classList.add("overlay_on");
 
         close_button.addEventListener("click", () => {
-          map_overlay.classList.remove("overlay_on");
+          overlay.classList.remove("overlay_on");
           map_holder.removeChild(mapFrame);
+          map_holder.style.display = "none";
         });
       });
     }
@@ -142,5 +145,11 @@ recognition.addEventListener("result", (e) => {
 });
 
 help_button.addEventListener("click", () => {
-  console.log("click");
+  overlay.classList.add("overlay_on");
+  help_box.style.display = "flex";
+
+  close_button.addEventListener("click", () => {
+    overlay.classList.remove("overlay_on");
+    help_box.style.display = "none";
+  });
 });

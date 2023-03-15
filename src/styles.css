@@ -90,16 +90,13 @@ html {
   font-size: 15px;
 }
 
-.testButton {
-  display: none;
-}
-
 .map_holder {
+  display: none;
   width: 800px;
   height: 800px;
 }
 
-.map_overlay {
+.overlay {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
@@ -143,10 +140,13 @@ html {
   display: none;
   width: 500px;
   height: 500px;
+  padding: 20px;
   background-color: white;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-/*NOTE STYLEY*/
+/*NOTE STYLE*/
 .container {
   display: flex;
   flex-direction: column;

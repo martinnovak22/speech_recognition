@@ -5,6 +5,7 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
+  watch: true,
   entry: {
     app: "./src/app.js",
     speech: "./src/modules/SpeechToText/speech.js",
