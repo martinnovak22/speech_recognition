@@ -6,6 +6,7 @@ const texts = document.querySelector(".texts");
 const startButton = document.querySelector("#start");
 const stopButton = document.querySelector("#stop");
 const textArea = document.querySelector(".textarea");
+const language_option = document.querySelector("#lang");
 const searchParams = new URLSearchParams("end");
 
 let p = document.createElement("p");
@@ -26,6 +27,10 @@ stopButton.addEventListener("click", () => {
   recognition.stop();
 });
 
+language_option.addEventListener("change", (e) => {
+  recognition.lang = e.target.value;
+});
+
 // Listener for speech
 recognition.addEventListener("result", (e) => {
   texts.appendChild(p);
@@ -34,14 +39,10 @@ recognition.addEventListener("result", (e) => {
     .map((result) => result.transcript)
     .join("");
 
-  // const speechText = document.createTextNode(
-  //   text.charAt(0).toUpperCase() + text.slice(1) + ". "
-  // );
-
-  p.innerText = firstLetterUpper(text);
-
+  const upperText = firstLetterUpper(text);
+  p.innerText = upperText;
   if (e.results[0].isFinal) {
-    textArea.appendChild(firstLetterUpper(text).createTextNode());
+    textArea.appendChild(document.createTextNode(upperText + ". "));
   }
 });
 // --------
