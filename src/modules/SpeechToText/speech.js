@@ -1,6 +1,7 @@
 import "./note_styles.css";
 import "../../styles.css";
 import { firstLetterUpper } from "../../utils";
+import { languages } from "./languages";
 
 const texts = document.querySelector(".texts");
 const startButton = document.querySelector("#start");
@@ -10,6 +11,15 @@ const language_option = document.querySelector("#lang");
 const searchParams = new URLSearchParams("end");
 
 let p = document.createElement("p");
+
+window.addEventListener("load", () => {
+  languages.map(function (lang) {
+    let option = document.createElement("option");
+    option.text = lang[0];
+    option.value = lang[1];
+    language_option.append(option);
+  });
+});
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
