@@ -76,6 +76,7 @@ html {
   font-size: 18px;
   padding: 20px;
   background-color: white;
+  margin-bottom: 15px;
 }
 
 .weather_icon {
@@ -178,7 +179,7 @@ html {
 .texts_container {
   position: relative;
   width: 500px;
-  height: 250px;
+  height: 280px;
 }
 
 .link {
@@ -187,4 +188,21 @@ html {
   color: black;
   cursor: pointer;
   margin-bottom: 15px;
+}
+
+.label {
+  font-size: 15px;
+  margin-right: 15px;
+}
+
+.dropdown {
+  width: 150px;
+  height: 25px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-box-shadow: 6px 6px 5px 0 rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 6px 6px 5px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 6px 6px 5px 0 rgba(0, 0, 0, 0.4);
+  border: 2px solid #333333;
+  border-radius: 5px;
 }
