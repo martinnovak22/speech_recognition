@@ -1,5 +1,5 @@
 import "./styles.css";
-import { sites_list } from "./sites";
+import { default_sites_list } from "./sites";
 import { firstLetterUpper, getLocation } from "./utils.js";
 
 const texts = document.querySelector(".texts");
@@ -20,7 +20,6 @@ const url_input = document.querySelector("#url");
 const new_site = document.querySelector("#new_site");
 const site_add_box = document.querySelector(".site_add_box");
 const remove_last_button = document.querySelector("#remove");
-const list_sites_button = document.querySelector("#list");
 
 const list_box = document.querySelector("#list_box");
 const list_box_container = document.querySelector(".list_box_container");
@@ -37,7 +36,7 @@ recognition.interimResults = true;
 
 window.addEventListener("load", () => {
   if (!localStorage.getItem("sites")) {
-    localStorage.setItem("sites", JSON.stringify(sites_list));
+    localStorage.setItem("sites", JSON.stringify(default_sites_list));
   }
 });
 
@@ -182,6 +181,8 @@ new_command_button.addEventListener("click", () => {
   overlay.classList.add("overlay_on");
   site_add_box.style.display = "flex";
 
+  getList();
+
   new_site.addEventListener("submit", (e) => {
     const new_site_object = { name: "", url: "" };
     e.preventDefault();
@@ -192,10 +193,10 @@ new_command_button.addEventListener("click", () => {
     if (current_list.some((site) => site.name === new_site_object.name)) {
       return;
     }
-    sites_list.push(new_site_object);
-    localStorage.setItem("sites", JSON.stringify(sites_list));
+    current_list.push(new_site_object);
+    localStorage.setItem("sites", JSON.stringify(current_list));
 
-    list_sites_button.click();
+    getList();
   });
 
   close_button.addEventListener("click", () => {
@@ -211,12 +212,12 @@ remove_last_button.addEventListener("click", () => {
   const current_list = localStorage.getItem("sites");
   const arr = JSON.parse(current_list);
   arr.pop();
-  sites_list.pop();
   localStorage.setItem("sites", JSON.stringify(arr));
-  list_sites_button.click();
+
+  getList();
 });
 
-list_sites_button.addEventListener("click", () => {
+const getList = () => {
   const list = localStorage.getItem("sites");
   const arr = JSON.parse(list);
 
@@ -236,4 +237,4 @@ list_sites_button.addEventListener("click", () => {
     list_box.appendChild(name_listing);
     list_box.appendChild(url_listing);
   });
-});
+};

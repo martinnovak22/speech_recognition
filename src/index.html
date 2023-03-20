@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Speech recognition</title>
     <link
       rel="stylesheet"
@@ -44,22 +45,23 @@
               </svg>
             </button>
             <div class="map_holder"></div>
-            <div class="site_add_box box">
-              <form id="new_site" class="form">
-                <label for="name" class="add_label">Name: </label>
-                <input id="name" class="input" type="text" required />
 
-                <label for="url" class="add_label">Url: </label>
-                <input id="url" class="input" type="url" required />
-                <button class="button submit">Submit</button>
-              </form>
-              <button id="remove" class="button remove">Remove last</button>
-              <button id="list" class="button list">
-                List all open commands
-              </button>
-            </div>
-            <div class="list_box_container box">
-              <div id="list_box" class="list_box"></div>
+            <div class="site_add_container">
+              <div class="site_add_box box">
+                <form id="new_site" class="form">
+                  <label for="name" class="add_label">Name: </label>
+                  <input id="name" class="input" type="text" required />
+
+                  <label for="url" class="add_label">Url: </label>
+                  <input id="url" class="input" type="url" required />
+                  <button class="button submit">Submit</button>
+                </form>
+                <button id="remove" class="button remove">Remove last</button>
+              </div>
+              <div class="list_box_container box">
+                <h6 class="box_title">Open command sites</h6>
+                <div id="list_box" class="list_box"></div>
+              </div>
             </div>
 
             <div class="help_box box">
