@@ -45,15 +45,23 @@
             </button>
             <div class="map_holder"></div>
             <div class="site_add_box box">
-              <form id="new_site">
-                <label for="name">Name: </label>
-                <input id="name" type="text" />
+              <form id="new_site" class="form">
+                <label for="name" class="add_label">Name: </label>
+                <input id="name" class="input" type="text" required />
 
-                <label for="url">Url: </label>
-                <input id="url" type="url" />
-                <button>Submit</button>
+                <label for="url" class="add_label">Url: </label>
+                <input id="url" class="input" type="url" required />
+                <button class="button submit">Submit</button>
               </form>
+              <button id="remove" class="button remove">Remove last</button>
+              <button id="list" class="button list">
+                List all open commands
+              </button>
             </div>
+            <div class="list_box_container box">
+              <div id="list_box" class="list_box"></div>
+            </div>
+
             <div class="help_box box">
               <h2>Commands</h2>
               <ul>

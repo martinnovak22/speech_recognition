@@ -19,6 +19,11 @@ const name_input = document.querySelector("#name");
 const url_input = document.querySelector("#url");
 const new_site = document.querySelector("#new_site");
 const site_add_box = document.querySelector(".site_add_box");
+const remove_last_button = document.querySelector("#remove");
+const list_sites_button = document.querySelector("#list");
+
+const list_box = document.querySelector("#list_box");
+const list_box_container = document.querySelector(".list_box_container");
 
 const result_span = document.createElement("span");
 
@@ -177,21 +182,58 @@ new_command_button.addEventListener("click", () => {
   overlay.classList.add("overlay_on");
   site_add_box.style.display = "flex";
 
-  const new_site_object = { name: "", url: "" };
-  new_site.addEventListener("submit", () => {
-    if (name_input.value === "" || url_input.value === "") {
-      alert("Empty input! Please fill in your name and url!");
-      return;
-    }
+  new_site.addEventListener("submit", (e) => {
+    const new_site_object = { name: "", url: "" };
+    e.preventDefault();
     new_site_object.name = name_input.value;
     new_site_object.url = url_input.value;
+    const current_list = JSON.parse(localStorage.getItem("sites"));
 
+    if (current_list.some((site) => site.name === new_site_object.name)) {
+      return;
+    }
     sites_list.push(new_site_object);
     localStorage.setItem("sites", JSON.stringify(sites_list));
+
+    list_sites_button.click();
   });
 
   close_button.addEventListener("click", () => {
     overlay.classList.remove("overlay_on");
     site_add_box.style.display = "none";
+
+    list_box.innerHTML = "";
+    list_box_container.style.display = "none";
+  });
+});
+
+remove_last_button.addEventListener("click", () => {
+  const current_list = localStorage.getItem("sites");
+  const arr = JSON.parse(current_list);
+  arr.pop();
+  sites_list.pop();
+  localStorage.setItem("sites", JSON.stringify(arr));
+  list_sites_button.click();
+});
+
+list_sites_button.addEventListener("click", () => {
+  const list = localStorage.getItem("sites");
+  const arr = JSON.parse(list);
+
+  list_box.innerHTML = "";
+
+  arr.map((site) => {
+    const name_listing = document.createElement("span");
+    const url_listing = document.createElement("span");
+
+    name_listing.innerText = "Name: " + site.name + "\n";
+    url_listing.innerText = "Url: " + site.url + "\n";
+
+    url_listing.classList.add("margin-bottom");
+
+    list_box_container.style.display = "flex";
+
+    list_box.appendChild(name_listing);
+    list_box.appendChild(url_listing);
   });
 });

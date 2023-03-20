@@ -1,4 +1,3 @@
-import "./note_styles.css";
 import "../../styles.css";
 import { firstLetterUpper } from "../../utils";
 import { languages } from "./languages";
