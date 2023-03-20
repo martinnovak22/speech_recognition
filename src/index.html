@@ -44,6 +44,16 @@
               </svg>
             </button>
             <div class="map_holder"></div>
+            <div class="site_add_box box">
+              <form id="new_site">
+                <label for="name">Name: </label>
+                <input id="name" type="text" />
+
+                <label for="url">Url: </label>
+                <input id="url" type="url" />
+                <button>Submit</button>
+              </form>
+            </div>
             <div class="help_box box">
               <h2>Commands</h2>
               <ul>
@@ -60,10 +70,13 @@
       </div>
 
       <div class="info box">
-        <h6 class="box_title">Output info</h6>
+        <h6 class="box_title position_top">Output info</h6>
         <div class="output"></div>
       </div>
-      <button id="help" class="button">Help</button>
+      <div class="button_box">
+        <button id="help" class="button">Help</button>
+        <button id="new" class="button">New open command</button>
+      </div>
     </div>
     <script type="text/javascript" src="app.js"></script>
   </body>

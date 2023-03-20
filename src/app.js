@@ -1,15 +1,24 @@
 import "./styles.css";
-
+import { sites_list } from "./sites";
 import { firstLetterUpper, getLocation } from "./utils.js";
 
 const texts = document.querySelector(".texts");
 const start_button = document.querySelector("#start");
 const output = document.querySelector(".output");
+
 const close_button = document.querySelector("#close");
 const overlay = document.querySelector(".overlay");
+
 const map_holder = document.querySelector(".map_holder");
+
 const help_button = document.querySelector("#help");
 const help_box = document.querySelector(".help_box");
+
+const new_command_button = document.querySelector("#new");
+const name_input = document.querySelector("#name");
+const url_input = document.querySelector("#url");
+const new_site = document.querySelector("#new_site");
+const site_add_box = document.querySelector(".site_add_box");
 
 const result_span = document.createElement("span");
 
@@ -21,8 +30,15 @@ window.SpeechRecognition =
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
 
+window.addEventListener("load", () => {
+  if (!localStorage.getItem("sites")) {
+    localStorage.setItem("sites", JSON.stringify(sites_list));
+  }
+});
+
 start_button.addEventListener("click", () => {
   recognition.start();
+  start_button.disabled = true;
   start_button.classList.add(
     "animate__animated",
     "animate__pulse",
@@ -48,6 +64,7 @@ recognition.addEventListener("result", (e) => {
     "animate__infinite",
     "infinite"
   );
+
   if (e.results[0].isFinal) {
     if (
       text.includes("What's your name") ||
@@ -56,17 +73,13 @@ recognition.addEventListener("result", (e) => {
       result_span.innerText = "My name is Martin";
       texts.appendChild(result_span);
     }
-    if (text.includes("open youtube")) {
-      window.open("https://www.youtube.com/");
-    }
-    if (text.includes("open facebook")) {
-      window.open("https://www.facebook.com/");
-    }
-    if (text.includes("open google")) {
-      window.open("https://www.google.com/");
-    }
-    if (text.includes("open seznam")) {
-      window.open("https://www.seznam.cz/");
+    if (text.includes("open")) {
+      const storage_list = window.localStorage.getItem("sites");
+      JSON.parse(storage_list).map((site) => {
+        if (text.includes(site.name)) {
+          window.open(site.url);
+        }
+      });
     }
     if (text.includes("open speech to text")) {
       window.location.href = "speech_to_text.html";
@@ -92,7 +105,10 @@ recognition.addEventListener("result", (e) => {
         });
       });
     }
-    if (text.includes("what's the weather")) {
+    if (
+      text.includes("what's the weather") ||
+      text.includes("what is the weather")
+    ) {
       getLocation().then((location) =>
         fetch(
           `https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longitude}&appid=${APIKEY}&units=metric`
@@ -130,13 +146,17 @@ recognition.addEventListener("result", (e) => {
           output.appendChild(btcPriceSpan);
         });
     }
-    if (text.includes("what's the date today")) {
+    if (
+      text.includes("what's the date today") ||
+      text.includes("what is the date today")
+    ) {
       const date = new Date();
       const time = document.createElement("span");
       time.innerText = date.toLocaleString();
       output.appendChild(time);
     }
 
+    start_button.disabled = false;
     setTimeout(() => {
       texts.removeChild(result_span);
     }, 1000);
@@ -150,5 +170,28 @@ help_button.addEventListener("click", () => {
   close_button.addEventListener("click", () => {
     overlay.classList.remove("overlay_on");
     help_box.style.display = "none";
+  });
+});
+
+new_command_button.addEventListener("click", () => {
+  overlay.classList.add("overlay_on");
+  site_add_box.style.display = "flex";
+
+  const new_site_object = { name: "", url: "" };
+  new_site.addEventListener("submit", () => {
+    if (name_input.value === "" || url_input.value === "") {
+      alert("Empty input! Please fill in your name and url!");
+      return;
+    }
+    new_site_object.name = name_input.value;
+    new_site_object.url = url_input.value;
+
+    sites_list.push(new_site_object);
+    localStorage.setItem("sites", JSON.stringify(sites_list));
+  });
+
+  close_button.addEventListener("click", () => {
+    overlay.classList.remove("overlay_on");
+    site_add_box.style.display = "none";
   });
 });

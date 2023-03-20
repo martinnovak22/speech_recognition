@@ -30,11 +30,13 @@ recognition.interimResults = true;
 startButton.addEventListener("click", () => {
   searchParams.set("end", "false");
   recognition.start();
+  startButton.disabled = true;
 });
 
 stopButton.addEventListener("click", () => {
   searchParams.set("end", "true");
   recognition.stop();
+  startButton.disabled = false;
 });
 
 language_option.addEventListener("change", (e) => {
