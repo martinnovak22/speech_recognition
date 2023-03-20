@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 html {
-  font-family: "Marhey";
+  font-family: "Marhey", serif;
   font-size: 20px;
 }
 
@@ -149,7 +149,7 @@ html {
 .help_box {
   display: none;
   width: 500px;
-  height: 500px;
+  height: 350px;
   padding: 20px;
   background-color: white;
   justify-content: flex-start;
@@ -199,6 +199,7 @@ html {
 
 .list_box_container {
   padding: 40px;
+  display: none;
 }
 
 .site_add_container {
@@ -283,6 +284,9 @@ html {
 }
 
 @media only screen and (max-width: 640px) {
+  .app {
+    padding: 25px 0;
+  }
   .site_add_container {
     flex-direction: column;
   }
@@ -292,6 +296,7 @@ html {
   }
   .main {
     width: 350px;
+    height: 380px;
     text-align: center;
   }
   .info {
@@ -299,5 +304,8 @@ html {
   }
   .texts {
     max-width: 80%;
+  }
+  .help_box {
+    width: 350px;
   }
 }
