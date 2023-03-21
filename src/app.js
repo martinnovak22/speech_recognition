@@ -160,6 +160,10 @@ recognition.addEventListener("result", (e) => {
       output.appendChild(time);
     }
 
+    if (text.includes("search")) {
+      window.open(`https://www.google.com/search?q=${text.slice(6)}`);
+    }
+
     start_button.disabled = false;
     setTimeout(() => {
       texts.removeChild(result_span);
