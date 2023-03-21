@@ -295,17 +295,43 @@ html {
     height: 150px;
   }
   .main {
-    width: 350px;
+    width: 90%;
     height: 380px;
     text-align: center;
+    padding: 20px;
   }
   .info {
-    min-width: 350px;
+    min-width: 90%;
   }
   .texts {
-    max-width: 80%;
+    width: 100%;
   }
   .help_box {
     width: 350px;
+  }
+
+  .button {
+    width: 120px;
+  }
+
+  .textarea_container {
+    min-width: 100%;
+    text-align: center;
+  }
+
+  .texts_container {
+    width: 100%;
+  }
+
+  .container {
+    max-width: 90%;
+  }
+
+  .textarea {
+    width: 90%;
+  }
+
+  .link {
+    font-size: 18px;
   }
 }
