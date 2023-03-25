@@ -1,6 +1,6 @@
 import "./styles.css";
 import { default_sites_list } from "./sites";
-import { firstLetterUpper, getLocation } from "./utils.js";
+import { addBounce, firstLetterUpper, getLocation } from "./utils.js";
 
 const texts = document.querySelector(".texts");
 const start_button = document.querySelector("#start");
@@ -40,6 +40,7 @@ window.addEventListener("load", () => {
   }
 });
 
+// Listeners for buttons
 start_button.addEventListener("click", () => {
   recognition.start();
   start_button.disabled = true;
@@ -50,6 +51,64 @@ start_button.addEventListener("click", () => {
     "infinite"
   );
 });
+
+help_button.addEventListener("click", () => {
+  addBounce(help_button);
+
+  overlay.classList.add("overlay_on");
+  help_box.style.display = "flex";
+
+  close_button.addEventListener("click", () => {
+    overlay.classList.remove("overlay_on");
+    help_box.style.display = "none";
+  });
+});
+
+new_command_button.addEventListener("click", () => {
+  addBounce(new_command_button);
+  overlay.classList.add("overlay_on");
+  site_add_box.style.display = "flex";
+
+  getList();
+
+  new_site.addEventListener("submit", (e) => {
+    addBounce(document.querySelector(".submit"));
+    const new_site_object = { name: "", url: "" };
+    e.preventDefault();
+    new_site_object.name = name_input.value;
+    new_site_object.url = url_input.value;
+    const current_list = JSON.parse(localStorage.getItem("sites"));
+
+    if (current_list.some((site) => site.name === new_site_object.name)) {
+      return;
+    }
+    current_list.push(new_site_object);
+    localStorage.setItem("sites", JSON.stringify(current_list));
+
+    getList();
+  });
+
+  close_button.addEventListener("click", () => {
+    overlay.classList.remove("overlay_on");
+    site_add_box.style.display = "none";
+
+    list_box.innerHTML = "";
+    list_box_container.style.display = "none";
+  });
+});
+
+remove_last_button.addEventListener("click", (e) => {
+  addBounce(remove_last_button);
+  e.preventDefault();
+  const current_list = localStorage.getItem("sites");
+  const arr = JSON.parse(current_list);
+  arr.pop();
+  localStorage.setItem("sites", JSON.stringify(arr));
+
+  getList();
+});
+
+// ----
 
 recognition.addEventListener("result", (e) => {
   texts.appendChild(result_span);
@@ -169,56 +228,6 @@ recognition.addEventListener("result", (e) => {
       texts.removeChild(result_span);
     }, 1000);
   }
-});
-
-help_button.addEventListener("click", () => {
-  overlay.classList.add("overlay_on");
-  help_box.style.display = "flex";
-
-  close_button.addEventListener("click", () => {
-    overlay.classList.remove("overlay_on");
-    help_box.style.display = "none";
-  });
-});
-
-new_command_button.addEventListener("click", () => {
-  overlay.classList.add("overlay_on");
-  site_add_box.style.display = "flex";
-
-  getList();
-
-  new_site.addEventListener("submit", (e) => {
-    const new_site_object = { name: "", url: "" };
-    e.preventDefault();
-    new_site_object.name = name_input.value;
-    new_site_object.url = url_input.value;
-    const current_list = JSON.parse(localStorage.getItem("sites"));
-
-    if (current_list.some((site) => site.name === new_site_object.name)) {
-      return;
-    }
-    current_list.push(new_site_object);
-    localStorage.setItem("sites", JSON.stringify(current_list));
-
-    getList();
-  });
-
-  close_button.addEventListener("click", () => {
-    overlay.classList.remove("overlay_on");
-    site_add_box.style.display = "none";
-
-    list_box.innerHTML = "";
-    list_box_container.style.display = "none";
-  });
-});
-
-remove_last_button.addEventListener("click", () => {
-  const current_list = localStorage.getItem("sites");
-  const arr = JSON.parse(current_list);
-  arr.pop();
-  localStorage.setItem("sites", JSON.stringify(arr));
-
-  getList();
 });
 
 const getList = () => {

@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Speech to text</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
   <body>
     <div class="app">
       <div class="container">
-        <div>
-          <button id="start" class="button">Start writing</button>
-          <button id="stop" class="button">Stop writing</button>
+        <div class="button_box">
+          <button id="start" class="button">Start</button>
+          <button id="stop" class="button">Stop</button>
+          <button id="clear" class="button">Clear</button>
         </div>
 
         <div class="textarea_container box">
@@ -18,6 +23,10 @@
             >Text output for you to copy.</label
           >
           <textarea id="textarea" class="box textarea"></textarea>
+          <div class="button_box">
+            <button id="read" class="button">Read</button>
+            <button id="copy" class="button">Copy</button>
+          </div>
         </div>
         <div class="box texts_container">
           <h6 class="box_title">Speech recognition</h6>

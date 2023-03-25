@@ -27,3 +27,20 @@ export const getLocation = () =>
 export const firstLetterUpper = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
+
+export const addBounce = (element) => {
+  element.classList.add("animate__animated", "animate__bounceIn");
+
+  setTimeout(() => {
+    element.classList.remove("animate__animated", "animate__bounceIn");
+  }, 1000);
+};
+
+export const setSelectedValue = (selectObj, valueToSet) => {
+  for (let i = 0; i < selectObj.options.length; i++) {
+    if (selectObj.options[i].value === valueToSet) {
+      selectObj.options[i].selected = true;
+      return;
+    }
+  }
+};
