@@ -1,5 +1,5 @@
 import "../../styles.css";
-import { firstLetterUpper, addBounce, setSelectedValue } from "../../utils";
+import { addBounce, firstLetterUpper, setSelectedValue } from "../../utils";
 import { languages } from "./languages";
 
 const texts = document.querySelector(".texts");
@@ -21,10 +21,10 @@ let p = document.createElement("p");
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
-const synth = window.speechSynthesis;
-
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
+
+const synth = window.speechSynthesis;
 
 // On window load, add languages to selection and choose current one
 window.addEventListener("load", () => {
@@ -40,7 +40,7 @@ window.addEventListener("load", () => {
 });
 
 // Listener for language option
-language_option.addEventListener("change", (e) => {
+language_option.addEventListener("change", async (e) => {
   recognition.lang = e.target.value;
 });
 
@@ -67,6 +67,17 @@ read_button.addEventListener("click", () => {
   const msg = textArea.value;
   const speech = new SpeechSynthesisUtterance(msg);
 
+  const voices = voicesReady();
+
+  const voice = getVoiceFromCode(language_option.value, voices);
+  const defaultVoice = getVoiceFromCode("en-GB", voices);
+
+  if (voice === undefined) {
+    speech.voice = defaultVoice;
+    synth.speak(speech);
+    return;
+  }
+  speech.voice = voice;
   synth.speak(speech);
 });
 
@@ -114,3 +125,21 @@ recognition.addEventListener("end", () => {
 });
 
 // --------
+
+const voicesReady = () => {
+  if (speechSynthesis) {
+    return speechSynthesis.getVoices();
+  } else {
+    alert(
+      "Bad news!  Your browser doesn't have the Speech Synthesis API this project requires.  Try opening this webpage using the newest version of Google Chrome."
+    );
+  }
+};
+
+const getVoiceFromCode = (code, voices) => {
+  return voices.find((voice) => {
+    if (voice.lang === code) {
+      return voice;
+    }
+  });
+};

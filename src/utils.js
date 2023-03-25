@@ -44,3 +44,11 @@ export const setSelectedValue = (selectObj, valueToSet) => {
     }
   }
 };
+
+export const getVoiceFromCode = (code, voices) => {
+  return voices.find((voice) => {
+    if (voice.lang === code) {
+      return voice;
+    }
+  });
+};
