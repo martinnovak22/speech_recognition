@@ -26,6 +26,20 @@ recognition.interimResults = true;
 
 const synth = window.speechSynthesis;
 
+const loadVoices = (cb) => {
+  const voices = speechSynthesis.getVoices();
+  if (voices.length > 0) {
+    return cb(undefined, voices);
+  }
+  setTimeout(() => loadVoices(cb), 1000);
+};
+
+const getVoicebyLang = (lang) => {
+  return speechSynthesis.getVoices().find((voice) => {
+    return voice.lang.slice(-2) === lang;
+  });
+};
+
 // On window load, add languages to selection and choose current one
 window.addEventListener("load", () => {
   const userLang = navigator.language;
@@ -34,6 +48,11 @@ window.addEventListener("load", () => {
     option.text = lang[0];
     option.value = lang[1];
     language_option.append(option);
+  });
+
+  loadVoices((err, voices) => {
+    if (err) return console.error(err);
+    return voices; // voices loaded and available
   });
 
   setSelectedValue(language_option, userLang);
@@ -66,18 +85,7 @@ read_button.addEventListener("click", () => {
   addBounce(read_button);
   const msg = textArea.value;
   const speech = new SpeechSynthesisUtterance(msg);
-
-  const voices = voicesReady();
-
-  const voice = getVoiceFromCode(language_option.value, voices);
-  const defaultVoice = getVoiceFromCode("en-GB", voices);
-
-  if (voice === undefined) {
-    speech.voice = defaultVoice;
-    synth.speak(speech);
-    return;
-  }
-  speech.voice = voice;
+  speech.voice = getVoicebyLang(language_option.value.slice(-2));
   synth.speak(speech);
 });
 
@@ -126,20 +134,11 @@ recognition.addEventListener("end", () => {
 
 // --------
 
-const voicesReady = () => {
-  if (speechSynthesis) {
-    return speechSynthesis.getVoices();
-  } else {
-    alert(
-      "Bad news!  Your browser doesn't have the Speech Synthesis API this project requires.  Try opening this webpage using the newest version of Google Chrome."
-    );
-  }
-};
-
-const getVoiceFromCode = (code, voices) => {
-  return voices.find((voice) => {
-    if (voice.lang === code) {
-      return voice;
-    }
-  });
-};
+// const getVoiceFromCode = (code, voices) => {
+//   console.log(code);
+//   return voices.find((voice) => {
+//     if (voice.startsWith(voice.) === code) {
+//       return voice;
+//     }
+//   });
+// };
