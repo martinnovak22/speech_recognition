@@ -24,6 +24,8 @@ const remove_last_button = document.querySelector("#remove");
 const list_box = document.querySelector("#list_box");
 const list_box_container = document.querySelector(".list_box_container");
 
+const spinner = document.querySelector("#spinner");
+
 const result_span = document.createElement("span");
 
 const APIKEY = process.env.WEATHER_API_KEY;
@@ -172,6 +174,7 @@ recognition.addEventListener("result", (e) => {
       text.includes("what's the weather") ||
       text.includes("what is the weather")
     ) {
+      spinner.removeAttribute("hidden");
       getLocation().then((location) =>
         fetch(
           `https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longitude}&appid=${APIKEY}&units=metric`
@@ -191,12 +194,14 @@ recognition.addEventListener("result", (e) => {
             weatherSpan.innerText =
               `Temperature: ${currentWeather.main.temp.toFixed(1)}\n` +
               `${firstLetterUpper(currentWeather.weather[0].description)}`;
+            spinner.setAttribute("hidden", "");
             output.appendChild(weatherSpan);
             output.appendChild(icon);
           })
       );
     }
     if (text.includes("bitcoin price now")) {
+      spinner.removeAttribute("hidden");
       fetch("https://api.binance.com/api/v3/avgPrice?symbol=BTCUSDT")
         .then((response) => {
           return response.json();
@@ -206,6 +211,7 @@ recognition.addEventListener("result", (e) => {
           const btcPriceSpan = document.createElement("span");
           btcPriceSpan.innerText =
             "BTC: " + Number(data.price).toFixed(2) + " $";
+          spinner.setAttribute("hidden", "");
           output.appendChild(btcPriceSpan);
         });
     }

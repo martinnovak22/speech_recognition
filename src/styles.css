@@ -210,6 +210,31 @@ html {
   margin-bottom: 10px;
 }
 
+/*SPINNER*/
+.spinner:not([hidden]) {
+  display: flex;
+}
+
+.spinner::after {
+  content: "";
+  width: 60px;
+  height: 60px;
+  border: 3px solid #f3f3f3;
+  border-top: 4px solid #6b9080;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /*NOTE STYLE*/
 .container {
   display: flex;
