@@ -150,6 +150,8 @@ recognition.addEventListener("result", (e) => {
       window.location.href = "speech_to_text.html";
     }
     if (text.includes("show me my location")) {
+      map_holder.style.display = "flex";
+      overlay.classList.add("overlay_on");
       getLocation().then((location) => {
         const mapFrame = document.createElement("iframe");
         mapFrame.setAttribute(
@@ -160,12 +162,11 @@ recognition.addEventListener("result", (e) => {
         mapFrame.setAttribute("loading", "lazy");
 
         map_holder.appendChild(mapFrame);
-        map_holder.style.display = "flex";
-        overlay.classList.add("overlay_on");
 
         close_button.addEventListener("click", () => {
+          const currentFrame = document.querySelector(".map_frame");
           overlay.classList.remove("overlay_on");
-          map_holder.removeChild(mapFrame);
+          currentFrame ? map_holder.removeChild(currentFrame) : null;
           map_holder.style.display = "none";
         });
       });
