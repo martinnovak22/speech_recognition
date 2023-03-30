@@ -1,5 +1,5 @@
-import "../../styles.css";
-import { addBounce, firstLetterUpper, setSelectedValue } from "../../utils";
+import "../styles.css";
+import { addBounce, firstLetterUpper, setSelectedValue } from "../utils";
 import { languages } from "./languages";
 
 const texts = document.querySelector(".texts");

@@ -2,32 +2,31 @@ import "./styles.css";
 import { default_sites_list } from "./sites";
 import { addBounce, firstLetterUpper, getLocation } from "./utils.js";
 
-const texts = document.querySelector(".texts");
+// Buttons
 const start_button = document.querySelector("#start");
-const output = document.querySelector(".output");
-
 const close_button = document.querySelector("#close");
-const overlay = document.querySelector(".overlay");
-
-const map_holder = document.querySelector(".map_holder");
-
 const help_button = document.querySelector("#help");
-const help_box = document.querySelector(".help_box");
-
 const new_command_button = document.querySelector("#new");
-const name_input = document.querySelector("#name");
-const url_input = document.querySelector("#url");
-const new_site = document.querySelector("#new_site");
-const site_add_box = document.querySelector(".site_add_box");
 const remove_last_button = document.querySelector("#remove");
 
+// Boxes, containers and output fields
+const texts = document.querySelector(".texts");
+const output = document.querySelector(".output");
+const overlay = document.querySelector(".overlay");
+const map_holder = document.querySelector(".map_holder");
+const help_box = document.querySelector(".help_box");
+const site_add_box = document.querySelector(".site_add_box");
 const list_box = document.querySelector("#list_box");
 const list_box_container = document.querySelector(".list_box_container");
-
 const spinner = document.querySelector("#spinner");
-
 const result_span = document.createElement("span");
 
+// Form
+const new_site = document.querySelector("#new_site");
+const name_input = document.querySelector("#name");
+const url_input = document.querySelector("#url");
+
+// Weather API key
 const APIKEY = process.env.WEATHER_API_KEY;
 
 window.SpeechRecognition =
@@ -109,9 +108,9 @@ remove_last_button.addEventListener("click", (e) => {
 
   getList();
 });
-
 // ----
 
+// Listener for recognition result
 recognition.addEventListener("result", (e) => {
   texts.appendChild(result_span);
   output.innerHTML = "";
@@ -237,6 +236,7 @@ recognition.addEventListener("result", (e) => {
   }
 });
 
+// Helper function which fills up list of sites to open
 const getList = () => {
   const list = localStorage.getItem("sites");
   const arr = JSON.parse(list);
