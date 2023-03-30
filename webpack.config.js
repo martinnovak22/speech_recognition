@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   entry: {
     app: "./src/app.js",
-    speech: "./src/modules/SpeechToText/speech.js",
+    speech: "./src/SpeechToText/speech.js",
   },
   output: {
     filename: "[name].js",
@@ -40,7 +40,7 @@ module.exports = {
       chunks: ["app.js"],
     }),
     new HtmlWebpackPlugin({
-      template: "src/modules/SpeechToText/speech_to_text.html",
+      template: "src/SpeechToText/speech_to_text.html",
       filename: "speech_to_text.html",
       inject: true,
       chunks: ["speech.js"],
